@@ -1,28 +1,23 @@
 #include "sort.h"
-/** insertion_sort_list - function sorts list using the insertion sotring
- * algorithm @list: pointer to address of first node of the list Return: return
+/**
+ * insertion_sort_list - function sorts list using the insertion alg
+ * @list: pointer to address of first node of the list Return: return
  * nothing (void)
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *curr = NULL;
-	listint_t *prev, *next, *temp = NULL;
-	listint_t *node = (*list);
+	listint_t *curr, *prev, *next, *node = NULL;
 
-	while (node)
+	for (node = (*list); node; node = node->next)
 	{
-		temp = node->next;
 		if (node->prev == NULL)
 			node = node->next;
-
 		if (node->n < node->prev->n)
 		{
-			curr = node;
-			while (node)
+			for (curr = node; node; node = curr)
 			{
 				prev = curr->prev;
 				next = curr->next;
-
 				if (node->n < prev->n)
 				{
 					prev->next = next;
@@ -42,17 +37,13 @@ void insertion_sort_list(listint_t **list)
 					}
 					curr->next = prev;
 					prev->prev = curr;
-					node = curr;
 				}
 				else
 					break;
 				print_list(*list);
-
 				if (node->prev == NULL)
 					break;
-				
 			}
 		}
-		node = temp;
 	}
 }
